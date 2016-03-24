@@ -11,7 +11,7 @@ if [ "$EP/bin/run.sh" = "$1" ]; then
     [ -r $EP/SESSIONKEY.txt ] || random_key > $EP/SESSIONKEY.txt
     touch $EP/node_modules/ep_etherpad-lite/.ep_initialized
     chown -R etherpad:etherpad $EP/settings.json $EP/var
-    exec gosu etherpad "$@"
+    exec su-exec etherpad "$@"
 fi
 
 exec "$@"

@@ -5,13 +5,10 @@ MAINTAINER Paul Tötterman <paul.totterman@iki.fi>
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh \
-    && apk --no-cache add curl \
-    && wget -O /usr/local/bin/gosu https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64 \
-    && [ 34049cfc713e8b74b90d6de49690fa601dc040021980812b2f1f691534be8a50 = "$(sha256sum /usr/local/bin/gosu |cut -d' ' -f1)" ] \
-    && chmod +x /usr/local/bin/gosu \
-    && addgroup -S etherpad \
-    && adduser -S -G etherpad etherpad \
-    && wget -O /etherpad.tar.gz https://github.com/ether/etherpad-lite/archive/1.5.7.tar.gz \
+    && apk --no-cache add curl su-exec \
+    && addgroup -S -g 999 etherpad \
+    && adduser -S -u 999 -G etherpad etherpad \
+    && curl -sLo /etherpad.tar.gz https://github.com/ether/etherpad-lite/archive/1.5.7.tar.gz \
     && mkdir /opt \
     && tar -xz -C /opt -f /etherpad.tar.gz \
     && mv /opt/etherpad-lite-1.5.7 /opt/etherpad \
