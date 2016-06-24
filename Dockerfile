@@ -6,8 +6,8 @@ MAINTAINER Paul Tötterman <paul.totterman@iki.fi>
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh \
     && apk --no-cache add curl su-exec \
-    && addgroup -S -g 999 etherpad \
-    && adduser -S -u 999 -G etherpad etherpad \
+    && addgroup -S -g 333 etherpad \
+    && adduser -S -u 333 -G etherpad etherpad \
     && curl -sLo /etherpad.tar.gz https://github.com/ether/etherpad-lite/archive/1.5.7.tar.gz \
     && mkdir /opt \
     && tar -xz -C /opt -f /etherpad.tar.gz \
